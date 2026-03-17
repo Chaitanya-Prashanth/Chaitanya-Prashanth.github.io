@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Portfolio — Digital Design Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --bg:#080c10;
+    --bg2:#0d1117;
+    --bg3:#111820;
+    --accent:#00d4ff;
+    --accent2:#00ff9d;
+    --accent3:#ff6b35;
+    --text:#e0eaf5;
+    --muted:#4a6580;
+    --border:#1a2d40;
+    --glow:rgba(0,212,255,0.15);
+  }
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Rajdhani',sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+    font-size:16px;
+  }
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(8,12,16,0.92);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border);
+    padding:0 2rem;
+    display:flex;justify-content:space-between;align-items:center;
+    height:60px;
+  }
+  .nav-logo{
+    font-family:'Share Tech Mono',monospace;
+    color:var(--accent);
+    font-size:14px;
+    letter-spacing:2px;
+  }
+  .nav-logo span{color:var(--muted);}
+  nav ul{list-style:none;display:flex;gap:2rem;}
+  nav ul li a{
+    color:var(--muted);
+    text-decoration:none;
+    font-size:13px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    font-weight:500;
+    transition:color 0.2s;
+  }
+  nav ul li a:hover{color:var(--accent);}
+  section{padding:100px 2rem 60px;max-width:960px;margin:0 auto;}
+  section:first-of-type{padding-top:140px;}
+  .hero{
+    min-height:100vh;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:0 2rem;
+    max-width:960px;margin:0 auto;
+    position:relative;
+  }
+  .hero-pre{
+    font-family:'Share Tech Mono',monospace;
+    color:var(--accent);
+    font-size:12px;
+    letter-spacing:3px;
+    margin-bottom:1.2rem;
+  }
+  .hero h1{
+    font-size:clamp(2.4rem,6vw,4.5rem);
+    font-weight:700;
+    line-height:1.05;
+    color:#fff;
+    margin-bottom:0.4rem;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--accent);
+    display:block;
+  }
+  .hero-subtitle{
+    font-size:1.15rem;
+    color:var(--muted);
+    margin:1.2rem 0 2.5rem;
+    font-weight:400;
+    max-width:520px;
+    letter-spacing:0.5px;
+  }
+  .hero-cta{display:flex;gap:1rem;flex-wrap:wrap;}
+  .btn{
+    font-family:'Rajdhani',sans-serif;
+    font-size:13px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    font-weight:600;
+    padding:12px 28px;
+    border-radius:2px;
+    cursor:pointer;
+    text-decoration:none;
+    transition:all 0.2s;
+  }
+  .btn-primary{background:var(--accent);color:#000;border:1px solid var(--accent);}
+  .btn-primary:hover{background:transparent;color:var(--accent);}
+  .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border);}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+  .hero-grid-bg{
+    position:fixed;top:0;left:0;right:0;bottom:0;
+    pointer-events:none;z-index:0;
+    opacity:0.035;
+    background-image:
+      linear-gradient(var(--accent) 1px,transparent 1px),
+      linear-gradient(90deg,var(--accent) 1px,transparent 1px);
+    background-size:60px 60px;
+  }
+  .hero-scan{
+    position:fixed;top:0;left:0;right:0;
+    height:2px;
+    background:linear-gradient(90deg,transparent,var(--accent),transparent);
+    animation:scan 8s linear infinite;
+    opacity:0.4;
+    pointer-events:none;z-index:0;
+  }
+  @keyframes scan{0%{top:-2px}100%{top:100vh}}
+  .sec-label{
+    font-family:'Share Tech Mono',monospace;
+    font-size:11px;
+    letter-spacing:3px;
+    color:var(--accent);
+    text-transform:uppercase;
+    margin-bottom:0.5rem;
+  }
+  .sec-title{font-size:2rem;font-weight:700;color:#fff;margin-bottom:2.5rem;}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;}
+  @media(max-width:680px){.about-grid{grid-template-columns:1fr;}}
+  .about-text p{color:var(--text);margin-bottom:1rem;font-size:1.05rem;font-weight:400;opacity:0.85;}
+  .about-stats{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+  .stat-card{
+    background:var(--bg3);
+    border:1px solid var(--border);
+    border-top:2px solid var(--accent);
+    padding:1.2rem;
+    border-radius:2px;
+  }
+  .stat-num{font-family:'Share Tech Mono',monospace;font-size:2rem;color:var(--accent);display:block;}
+  .stat-label{font-size:12px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;}
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:1.5rem;}
+  @media(max-width:600px){.projects-grid{grid-template-columns:1fr;}}
+  .project-card{
+    background:var(--bg3);
+    border:1px solid var(--border);
+    border-radius:2px;
+    padding:1.5rem;
+    position:relative;
+    overflow:hidden;
+    transition:border-color 0.2s,transform 0.2s;
+    cursor:pointer;
+  }
+  .project-card::before{
+    content:'';position:absolute;top:0;left:0;right:0;
+    height:2px;background:var(--card-accent,var(--accent));
+  }
+  .project-card:hover{border-color:var(--card-accent,var(--accent));transform:translateY(-3px);}
+  .project-tag{
+    font-family:'Share Tech Mono',monospace;
+    font-size:10px;letter-spacing:2px;
+    color:var(--card-accent,var(--accent));
+    text-transform:uppercase;margin-bottom:0.8rem;display:block;
+  }
+  .project-card h3{font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:0.6rem;}
+  .project-card p{font-size:0.9rem;color:var(--muted);line-height:1.6;margin-bottom:1rem;}
+  .tech-tags{display:flex;flex-wrap:wrap;gap:6px;}
+  .tech-tag{
+    font-family:'Share Tech Mono',monospace;font-size:10px;
+    padding:3px 8px;
+    background:rgba(0,212,255,0.07);
+    border:1px solid rgba(0,212,255,0.2);
+    color:var(--accent);border-radius:2px;letter-spacing:1px;
+  }
+  .tech-tag.g{background:rgba(0,255,157,0.07);border-color:rgba(0,255,157,0.2);color:var(--accent2);}
+  .tech-tag.o{background:rgba(255,107,53,0.07);border-color:rgba(255,107,53,0.2);color:var(--accent3);}
+  .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;}
+  .skill-group{background:var(--bg3);border:1px solid var(--border);border-radius:2px;padding:1.5rem;}
+  .skill-group-title{
+    font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;
+    color:var(--accent);text-transform:uppercase;margin-bottom:1.2rem;
+    display:flex;align-items:center;gap:8px;
+  }
+  .skill-group-title::after{content:'';flex:1;height:1px;background:var(--border);}
+  .skill-bar{margin-bottom:0.9rem;}
+  .skill-bar-header{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px;color:var(--text);font-weight:500;}
+  .skill-bar-header span:last-child{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted);}
+  .skill-track{height:3px;background:var(--border);border-radius:1px;overflow:hidden;}
+  .skill-fill{height:100%;border-radius:1px;background:var(--accent);width:0;transition:width 1.2s cubic-bezier(0.4,0,0.2,1);}
+  .skill-fill.g{background:var(--accent2);}
+  .skill-fill.o{background:var(--accent3);}
+  .contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;}
+  @media(max-width:680px){.contact-wrap{grid-template-columns:1fr;}}
+  .contact-info p{color:var(--muted);font-size:1rem;margin-bottom:1.5rem;line-height:1.8;}
+  .contact-links{display:flex;flex-direction:column;gap:1rem;}
+  .contact-link{display:flex;align-items:center;gap:12px;color:var(--text);text-decoration:none;font-size:0.95rem;transition:color 0.2s;}
+  .contact-link:hover{color:var(--accent);}
+  .contact-link-icon{
+    width:36px;height:36px;background:var(--bg3);
+    border:1px solid var(--border);border-radius:2px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--accent);
+  }
+  .contact-form{display:flex;flex-direction:column;gap:1rem;}
+  .form-row{display:flex;flex-direction:column;gap:6px;}
+  .form-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-family:'Share Tech Mono',monospace;}
+  .form-input{
+    background:var(--bg3);border:1px solid var(--border);
+    color:var(--text);font-family:'Rajdhani',sans-serif;
+    font-size:15px;padding:10px 14px;border-radius:2px;outline:none;transition:border-color 0.2s;
+  }
+  .form-input:focus{border-color:var(--accent);}
+  textarea.form-input{resize:vertical;min-height:100px;}
+  .form-submit{
+    font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:2px;
+    text-transform:uppercase;background:var(--accent);color:#000;border:none;
+    padding:12px 24px;cursor:pointer;border-radius:2px;font-weight:600;
+    transition:all 0.2s;align-self:flex-start;
+  }
+  .form-submit:hover{background:transparent;color:var(--accent);outline:1px solid var(--accent);}
+  footer{
+    border-top:1px solid var(--border);padding:2rem;text-align:center;
+    font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:1.5px;
+  }
+  .fade-in{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s ease;}
+  .fade-in.visible{opacity:1;transform:none;}
+  .blink{animation:blink 1s step-end infinite;}
+  @keyframes blink{50%{opacity:0}}
+</style>
+</head>
+<body>
+
+<div class="hero-grid-bg"></div>
+<div class="hero-scan"></div>
+
+<nav>
+  <div class="nav-logo"><span>//</span> PORTFOLIO<span>.v2026</span></div>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-pre">DIGITAL DESIGN ENGINEER</div>
+  <h1>
+    Your Name<br>
+    <em>ASIC &amp; FPGA<span class="blink">_</span></em>
+  </h1>
+  <p class="hero-subtitle">
+    Designing high-performance digital logic from RTL to silicon. Specializing in timing closure, low-power design, and FPGA prototyping.
+  </p>
+  <div class="hero-cta">
+    <a href="#projects" class="btn btn-primary">View Work</a>
+    <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+  </div>
+</div>
+
+<section id="about">
+  <div class="fade-in">
+    <div class="sec-label">// 01. PROFILE</div>
+    <div class="sec-title">About Me</div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text fade-in">
+      <p>Digital Design Engineer with expertise in full-chip ASIC development and FPGA-based prototyping. I work across the entire design flow — from architecture and RTL coding through synthesis, STA, and tape-out.</p>
+      <p>I'm passionate about building reliable, high-speed silicon that ships on time and meets power targets without compromise. My background spans high-speed interconnects, signal processing pipelines, and SoC integration.</p>
+      <p>When I'm not closing timing or writing UVM testbenches, I'm exploring emerging EDA toolflows and contributing to open-source HDL projects.</p>
+    </div>
+    <div class="about-stats fade-in">
+      <div class="stat-card"><span class="stat-num">7+</span><span class="stat-label">Years Experience</span></div>
+      <div class="stat-card"><span class="stat-num">4</span><span class="stat-label">Tape-outs</span></div>
+      <div class="stat-card"><span class="stat-num">12+</span><span class="stat-label">FPGA Projects</span></div>
+      <div class="stat-card"><span class="stat-num">3nm</span><span class="stat-label">Min Node</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="fade-in">
+    <div class="sec-label">// 02. WORK</div>
+    <div class="sec-title">Projects</div>
+  </div>
+  <div class="projects-grid fade-in">
+    <div class="project-card" style="--card-accent:#00d4ff">
+      <span class="project-tag">ASIC &mdash; TSMC 7nm</span>
+      <h3>High-Speed SerDes PHY</h3>
+      <p>Designed 56G PAM-4 SerDes transceiver front-end including clock and data recovery, FIR equalizer, and adaptive DFE. Achieved &lt;1e-12 BER at target SNR.</p>
+      <div class="tech-tags">
+        <span class="tech-tag">SystemVerilog</span>
+        <span class="tech-tag">Synopsys DC</span>
+        <span class="tech-tag">Tempus STA</span>
+        <span class="tech-tag">SPICE</span>
+      </div>
+    </div>
+    <div class="project-card" style="--card-accent:#00ff9d">
+      <span class="project-tag">FPGA &mdash; Xilinx Versal</span>
+      <h3>Real-Time Video Pipeline</h3>
+      <p>4K60 H.264 encode pipeline with custom motion estimation accelerator. Integrated HLS-generated IP with handcrafted RTL datapath for 2.1x throughput gain over baseline.</p>
+      <div class="tech-tags">
+        <span class="tech-tag g">VHDL</span>
+        <span class="tech-tag g">Vivado HLS</span>
+        <span class="tech-tag g">AXI4-Stream</span>
+        <span class="tech-tag g">Vitis</span>
+      </div>
+    </div>
+    <div class="project-card" style="--card-accent:#ff6b35">
+      <span class="project-tag">ASIC &mdash; GF 12LP</span>
+      <h3>ML Inference Accelerator</h3>
+      <p>8-bit INT quantized neural network accelerator with systolic array MAC engine. 512 GOPS/W at 1GHz. Full UVM verification environment with coverage-driven closure.</p>
+      <div class="tech-tags">
+        <span class="tech-tag o">SystemVerilog</span>
+        <span class="tech-tag o">UVM</span>
+        <span class="tech-tag o">Innovus APR</span>
+        <span class="tech-tag o">Calibre DRC</span>
+      </div>
+    </div>
+    <div class="project-card" style="--card-accent:#00d4ff">
+      <span class="project-tag">FPGA &mdash; Intel Agilex</span>
+      <h3>PCIe Gen5 DMA Engine</h3>
+      <p>16-lane PCIe Gen5 host interface with scatter-gather DMA, descriptor rings, and MSI-X interrupt coalescing. Sustained 60 GB/s host-to-card bandwidth in loopback.</p>
+      <div class="tech-tags">
+        <span class="tech-tag">SystemVerilog</span>
+        <span class="tech-tag">Quartus Prime</span>
+        <span class="tech-tag">TLP Sniffer</span>
+        <span class="tech-tag">Linux Driver</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="fade-in">
+    <div class="sec-label">// 03. EXPERTISE</div>
+    <div class="sec-title">Skills</div>
+  </div>
+  <div class="skills-grid fade-in" id="skills-grid">
+    <div class="skill-group">
+      <div class="skill-group-title">HDL &amp; Verification</div>
+      <div class="skill-bar"><div class="skill-bar-header"><span>SystemVerilog</span><span>Expert</span></div><div class="skill-track"><div class="skill-fill" data-w="95"></div></div></div>
+      <div class="skill-bar"><div class="skill-bar-header"><span>VHDL</span><span>Advanced</span></div><div class="skill-track"><div class="skill-fill" data-w="85"></div></div></div>
+      <div class="skill-bar"><div class="skill-bar-header"><span>UVM / OVM</span><span>Advanced</span></div><div class="skill-track"><div class="skill-fill" data-w="82"></div></div></div>
+      <div class="skill-bar"><div class="skill-bar-header"><span>Cocotb</span><span>Proficient</span></div><div class="skill-track"><div class="skill-fill" data-w="70"></div></div></div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">ASIC Flow</div>
+      <div class="skill-bar"><div class="skill-bar-header"><span>Synopsys DC / Genus</span><span>Expert</span></div><div class="skill-track"><div class="skill-fill g" data-w="92"></div></div></div>
+      <div class="skill-bar"><div class="skill-bar-header"><span>Cadence Innovus / ICC2</span><span>Advanced</span></div><div class="skill-track"><div class="skill-fill g" data-w="88"></div></div></div>
+      <div class="skill-bar"><div class="skill-bar-header"><span>Tempus / PrimeTime STA</span><span>Expert</span></div><div class="skill-track"><div class="skill-fill g" data-w="93"></div></div></div>
+      <div class="skill-bar"><div class="skill-bar-header"><span>Calibre DRC/LVS</span><span>Advanced</span></div><div class="skill-track"><div class="skill-fill g" data-w="80"></div></div></div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">FPGA &amp; Scripting</div>
+      <div class="skill-bar"><div class="skill-bar-header"><span>Vivado / Vitis</span><span>Expert</span></div><div class="skill-track"><div class="skill-fill o" data-w="94"></div></div></div>
+      <div class="skill-bar"><div class="skill-bar-header"><span>Quartus Prime</span><span>Advanced</span></div><div class="skill-track"><div class="skill-fill o" data-w="86"></div></div></div>
+      <div class="skill-bar"><div class="skill-bar-header"><span>TCL Scripting</span><span>Expert</span></div><div class="skill-track"><div class="skill-fill o" data-w="90"></div></div></div>
+      <div class="skill-bar"><div class="skill-bar-header"><span>Python / PyUVM</span><span>Advanced</span></div><div class="skill-track"><div class="skill-fill o" data-w="78"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="fade-in">
+    <div class="sec-label">// 04. CONNECT</div>
+    <div class="sec-title">Contact</div>
+  </div>
+  <div class="contact-wrap fade-in">
+    <div class="contact-info">
+      <p>Looking to collaborate on a challenging ASIC project, FPGA prototype, or just want to talk shop about timing closure? I'm always open to interesting work.</p>
+      <div class="contact-links">
+        <a href="mailto:you@email.com" class="contact-link">
+          <div class="contact-link-icon">@</div>
+          <span>you@email.com</span>
+        </a>
+        <a href="https://linkedin.com/in/yourname" class="contact-link">
+          <div class="contact-link-icon">in</div>
+          <span>linkedin.com/in/yourname</span>
+        </a>
+        <a href="https://github.com/yourhandle" class="contact-link">
+          <div class="contact-link-icon">gh</div>
+          <span>github.com/yourhandle</span>
+        </a>
+      </div>
+    </div>
+    <div class="contact-form">
+      <div class="form-row">
+        <label class="form-label">Name</label>
+        <input type="text" class="form-input" placeholder="Your name" />
+      </div>
+      <div class="form-row">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-input" placeholder="your@email.com" />
+      </div>
+      <div class="form-row">
+        <label class="form-label">Message</label>
+        <textarea class="form-input" placeholder="Tell me about your project..."></textarea>
+      </div>
+      <button class="form-submit">Send Message &rarr;</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span style="color:var(--accent)">// </span>BUILT WITH PRECISION &mdash; ALL SYSTEMS NOMINAL<span style="color:var(--accent)"> //</span>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+        if(e.target.closest('#skills-grid')||e.target.id==='skills-grid'){
+          document.querySelectorAll('.skill-fill').forEach(bar=>{
+            bar.style.width = bar.dataset.w + '%';
+          });
+        }
+        obs.unobserve(e.target);
+      }
+    });
+  },{threshold:0.15});
+  document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
